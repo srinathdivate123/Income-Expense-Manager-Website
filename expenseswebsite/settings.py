@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d+p9z07%7dc#sfivh5i8_7clu2mk8zn)4l$&)dp9q-*0$a_bh1'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env("DB_NAME"),
-        'USER' : env("DB_USER"),
-        'PASSWORD' : env("DB_PASSWORD"),
-        'HOST' : env("DB_HOST"),
-        'PORT' : env("DB_PORT"),
+        'NAME': os.environ.get("DB_NAME"),
+        'USER' : os.environ.get("DB_USER"),
+        'PASSWORD' : os.environ.get("DB_PASSWORD"),
+        'HOST' : os.environ.get("DB_HOST"),
+        'PORT' : os.environ.get("DB_PORT"),
     }
 }
 
@@ -134,10 +134,10 @@ MESSAGE_TAGS = {messages.ERROR : 'danger'}
 
 
 # email stuff 
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_USE_TLS = env('EMAIL_USE_TLS')
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 django_heroku.settings(locals())
