@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container mt-4">
+  <div class="mt-5">
+    <h5>Share your expense and income details with</h5>
+    <hr />
+    {% include 'partials/messages.html' %}
+    <form action="{% url 'nshow_others' %}" method="POST">
+      {% csrf_token %}
+      <div class="input-group">
+        <select name="ShowToUser" class="form-select" id="inputGroupSelect04"
+          aria-label="Example select with button addon">
+          {% if users %}
+          {% if share_preferences.ShowingTo %}
+          <option name="ShowToUser" selected value="{{share_preferences}}">{{share_preferences.ShowingTo}}</option>
+          {% else %}
+          <option value=""></option>
+          {% endif %}
+          {% for u in users %}
+          {% for i in user %}
+          {% if u.id == i.id or u.username == share_preferences.ShowingTo %}
+          &nbsp;
+          {% else %}
+          <option value="{{u.username}}">
+            {{u.username}}
+            
+            <hr />
+          </option>
+          {% endif %}
+          {% endfor %}
+          {% endfor %}
+          {% endif %}
+
+        </select>
+        <input class="btn btn-outline-secondary" type="submit" value="Save" />
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}
