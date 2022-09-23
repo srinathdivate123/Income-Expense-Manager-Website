@@ -12,6 +12,7 @@ six = "*"
 psycopg2 = "*"
 whitenoise = "*"
 django-environ = "*"
+waitress = "*"
 
 [dev-packages]
 
