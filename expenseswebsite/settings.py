@@ -1,8 +1,7 @@
 import os
-import environ
+
 # Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+
 from pathlib import Path
 import django_heroku
 from django.contrib import messages
@@ -15,12 +14,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d+p9z07%7dc#sfivh5i8_7clu2mk8zn)4l$&)dp9q-*0$a_bh1'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.heroku.com']
 
 
 # Application definition
@@ -32,10 +31,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'expenses',
-    'userpreferences',
     'authentication',
+    'expenses',
+    'others',
     'userincome',
+    'userpreferences',
 ]
 
 
