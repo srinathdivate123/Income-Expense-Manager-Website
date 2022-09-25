@@ -24,6 +24,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://sriexpenses.herokuapp.com','http://127.0.0.1']
 
 
 # Application definition
