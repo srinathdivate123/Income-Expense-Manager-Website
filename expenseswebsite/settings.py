@@ -1,4 +1,8 @@
 import os
+from decouple import config
+
+# Add .env variables anywhere before SECRET_KEY
+
 
 # Initialise environment variables
 
@@ -14,12 +18,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.heroku.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.heroku.com', '0.0.0.0']
 
 
 # Application definition
@@ -30,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'authentication',
     'expenses',
@@ -77,11 +82,11 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DB_NAME"),
-        'USER' : os.environ.get("DB_USER"),
-        'PASSWORD' : os.environ.get("DB_PASSWORD"),
-        'HOST' : os.environ.get("DB_HOST"),
-        'PORT' : os.environ.get("DB_PORT"),
+        'NAME': config("DB_NAME"),
+        'USER' : config("DB_USER"),
+        'PASSWORD' : config("DB_PASSWORD"),
+        'HOST' : config("DB_HOST"),
+        'PORT' : config("DB_PORT"),
     }
 }
 
@@ -134,10 +139,9 @@ MESSAGE_TAGS = {messages.ERROR : 'danger'}
 
 
 # email stuff 
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-django_heroku.settings(locals())
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')

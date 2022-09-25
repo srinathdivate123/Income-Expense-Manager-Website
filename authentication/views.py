@@ -18,7 +18,8 @@ from django.urls import reverse
 from django.contrib import auth
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 import threading
-
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_control
 
 
 
@@ -31,8 +32,8 @@ class EmailThread(threading.Thread):
     def run(self):
         self.email.send(fail_silently=False)
 
-class EmailValidationView(View):
-    def post(self, request):
+def EmailValidationView(request):
+    if request.method == "POST":
         data = json.loads(request.body)
         email = data['email']
         if not validate_email(email):
@@ -42,8 +43,8 @@ class EmailValidationView(View):
         return JsonResponse({'email_valid': True})
 
 
-class UsernameValidationView(View):
-    def post(self, request):
+def UsernameValidationView(request):
+    if request.method == "POST":
         data = json.loads(request.body)
         username = data['username']
         if not str(username).isalnum():
@@ -53,11 +54,13 @@ class UsernameValidationView(View):
         return JsonResponse({'username_valid': True})
 
 
-class RegistrationView(View):
-    def get(self, request):
+
+
+def RegistrationView(request):
+    if request.method == "GET":
         return render(request, 'authentication/register.html')
 
-    def post(self, request):
+    if request.method == "POST":
         # GET USER DATA
         # VALIDATE
         # create a user account
@@ -107,40 +110,41 @@ class RegistrationView(View):
 
 
 
-class VerificationView(View):
-    def get(self, request, uidb64, token):
-        try:
-            id = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=id)
+def VerificationView(request,uidb64, token):
+    
+    try:
+        id = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=id)
 
-            if not token_generator.check_token(user, token):
-                return redirect('nlogin'+'?message='+'User already activated')
+        if not token_generator.check_token(user, token):
+            return redirect('nlogin'+'?message='+'User already activated')
 
-            if user.is_active:
-                return redirect('nlogin')
-            user.is_active = True
-            user.save()
-            messages.success(request, 'Account activated successfully')
+        if user.is_active:
             return redirect('nlogin')
-
-        except Exception as ex:
-            pass
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Account activated successfully')
         return redirect('nlogin')
 
+    except Exception as ex:
+        pass
+    return redirect('nlogin')
 
 
 
 
-class LoginView(View):
-    def get(self, request):
+
+def LoginView(request):
+    if request.method=="GET":
         return render(request, 'authentication/login.html')
 
-    def post(self, request):
+    if request.method=="POST":
         username = request.POST['username']
         password = request.POST['password']
 
         if username and password:
             user = auth.authenticate(username=username, password=password)
+            
 
             if user:
                 if user.is_active:
@@ -162,19 +166,19 @@ class LoginView(View):
         return render(request, 'authentication/login.html')
 
 
-class LogoutView(View):
-    def post(self, request):
+def LogoutView(request):
+    if request.method == "POST":
         auth.logout(request)
         messages.success(request, 'You have been logged out successfully!')
         return redirect('nlogin')
 
 
 
-class RequestPasswordResetEmail(View):
-    def get(self, request):
+def RequestPasswordResetEmail(request):
+    if request.method == "GET":
         return render(request, 'authentication/resetpassword.html')
     
-    def post(self, request):
+    if request.method == "POST":
         email = request.POST['email']
         context={'values':request.POST}
 
@@ -223,8 +227,8 @@ class RequestPasswordResetEmail(View):
 
 
 
-class CompletePasswordReset(View):
-    def get(self, request, uidb64, token):
+def CompletePasswordReset(request,uidb64, token):
+    if request.method=="GET":
         context = {
             'uidb64':uidb64,
             'token':token
@@ -239,7 +243,7 @@ class CompletePasswordReset(View):
             pass   
         return render( request, 'authentication/setnewpass.html', context)
 
-    def post(self, request, uidb64, token):
+    if request.method=="POST":
         context = {
             'uidb64':uidb64,
             'token':token
@@ -259,8 +263,6 @@ class CompletePasswordReset(View):
             user.save()
             messages.success(request, 'Password reset successful. You can login with the new password.')
             return redirect('nlogin')
-        except Exception as e:
+        except Exception as ex:
             messages.info(request, 'Something went wrong, try again.')
             return render( request, 'authentication/setnewpass.html', context)
-       
-  

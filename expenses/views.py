@@ -45,6 +45,7 @@ def index (request):
     return render (request, 'expenses/index.html', context)
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='/authentication/login')
 def add_expense (request):
     categories = Category.objects.all()
@@ -79,6 +80,9 @@ def add_expense (request):
         messages.success(request, 'Expense saved successfully')
         return redirect('nexpenses')
 
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='/authentication/login')
 def expense_edit(request, id):
     expense = Expense.objects.get(pk=id)
     categories = Category.objects.all()
@@ -132,7 +136,8 @@ def delete_expense(request, id):
     messages.success(request, 'Expense deleted successfully! ')
     return redirect ('nexpenses')
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='/authentication/login')
 def expense_category_summary(request):
     expenses = Expense.objects.filter(owner=request.user)
     finalrep = {}

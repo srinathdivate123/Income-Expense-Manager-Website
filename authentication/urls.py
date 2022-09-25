@@ -1,15 +1,15 @@
 from django.views.decorators.csrf import csrf_exempt
-from . views import EmailValidationView, RegistrationView ,CompletePasswordReset, RequestPasswordResetEmail, UsernameValidationView, VerificationView,LogoutView, LoginView
 from django.urls import path
+from . import views
 urlpatterns = [
-    path('login', LoginView.as_view(), name='nlogin'),
-    path('logout', LogoutView.as_view(), name='nlogout'),
-    path('reg', RegistrationView.as_view(), name='nregister'),
-    path('validate-username', csrf_exempt( UsernameValidationView.as_view()), name='nvalidate-username'),
-    path('validate-email', csrf_exempt(EmailValidationView.as_view()), name='nvalidate-email'),
-    path('activate/<uidb64>/<token>', VerificationView.as_view(), name='nactivate'),
-    path('request-reset-link', RequestPasswordResetEmail.as_view(), name='nreset'),
-    path('set-new-password/<uidb64>/<token>', CompletePasswordReset.as_view(), name='reset-user-password'),
+    path('login', views.LoginView, name='nlogin'),
+    path('logout', views.LogoutView, name='nlogout'),
+    path('register', views.RegistrationView, name='nregister'),
+    path('validate-username', csrf_exempt( views.UsernameValidationView), name='nvalidate-username'),
+    path('validate-email', csrf_exempt(views.EmailValidationView), name='nvalidate-email'),
+    path('activate/<uidb64>/<token>', views.VerificationView, name='nactivate'),
+    path('request-reset-link', views.RequestPasswordResetEmail, name='nreset'),
+    path('set-new-password/<uidb64>/<token>', views.CompletePasswordReset, name='reset-user-password'),
 
 ]
 
