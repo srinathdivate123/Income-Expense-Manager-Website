@@ -33,12 +33,14 @@ emailField.addEventListener("keyup", (e) => {
       .then((data) => {
         console.log("data", data);
         if (data.email_error) {
-          submitBtn.disabled = true;
+          submitBtn.setAttribute = ('disabled', 'disabled');
           emailField.classList.add("is-invalid");
           emailFeedBackArea.style.display = "block";
           emailFeedBackArea.innerHTML = `<p>${data.email_error}</p>`;
         } else {
           submitBtn.removeAttribute("disabled");
+          emailFeedBackArea.style.display = "none";
+          emailField.classList.remove("is-invalid");
         }
       });
   }
@@ -48,9 +50,7 @@ usernameField.addEventListener("keyup", (e) => {
   const usernameVal = e.target.value;
 
   usernameSuccessOutput.style.display = "block";
-
   usernameSuccessOutput.textContent = `Checking if ${usernameVal} is available`;
-
   usernameField.classList.remove("is-invalid");
   feedBackArea.style.display = "none";
 
@@ -66,9 +66,12 @@ usernameField.addEventListener("keyup", (e) => {
           usernameField.classList.add("is-invalid");
           feedBackArea.style.display = "block";
           feedBackArea.innerHTML = `<p>${data.username_error}</p>`;
-          submitBtn.disabled = true;
+          submitBtn.setAttribute = ('disabled', 'disabled')
         } else {
           submitBtn.removeAttribute("disabled");
+          usernameSuccessOutput.style.display = "none";
+          usernameField.classList.remove("is-invalid");
+          feedBackArea.style.display = "none";
         }
       });
   }
