@@ -49,8 +49,7 @@ emailField.addEventListener("keyup", (e) => {
 usernameField.addEventListener("keyup", (e) => {
   const usernameVal = e.target.value;
 
-  usernameSuccessOutput.style.display = "block";
-  usernameSuccessOutput.textContent = `Checking if ${usernameVal} is available`;
+ 
   usernameField.classList.remove("is-invalid");
   feedBackArea.style.display = "none";
 
@@ -67,9 +66,9 @@ usernameField.addEventListener("keyup", (e) => {
           feedBackArea.style.display = "block";
           feedBackArea.innerHTML = `<p>${data.username_error}</p>`;
           submitBtn.setAttribute = ('disabled', 'disabled')
-        } else {
+        } 
+        else {
           submitBtn.removeAttribute("disabled");
-          usernameSuccessOutput.style.display = "none";
           usernameField.classList.remove("is-invalid");
           feedBackArea.style.display = "none";
         }
