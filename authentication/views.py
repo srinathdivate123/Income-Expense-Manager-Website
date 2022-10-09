@@ -3,7 +3,6 @@ from django.views import View
 import json
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.models import User
-import json
 from django.http import JsonResponse
 from validate_email import validate_email
 from django.contrib import messages
@@ -16,8 +15,8 @@ from django.template.loader import render_to_string
 from .utils import token_generator
 from django.urls import reverse
 from django.contrib import auth
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
 import threading
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
 
@@ -28,7 +27,6 @@ class EmailThread(threading.Thread):
     def __init__(self, email):
         self.email = email
         threading.Thread.__init__(self)
-
     def run(self):
         self.email.send(fail_silently=False)
 

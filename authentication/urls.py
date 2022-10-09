@@ -10,6 +10,4 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', views.VerificationView, name='nactivate'),
     path('request-reset-link', views.RequestPasswordResetEmail, name='nreset'),
     path('set-new-password/<uidb64>/<token>', views.CompletePasswordReset, name='reset-user-password'),
-
 ]
-
