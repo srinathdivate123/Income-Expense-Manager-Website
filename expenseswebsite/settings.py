@@ -1,6 +1,4 @@
 import os
-from decouple import config
-
 # Add .env variables anywhere before SECRET_KEY
 
 
@@ -18,10 +16,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
-
+SECRET_KEY = os.environ['SECRET_KEY']
+DEBUG = os.environ['DEBUG_STATUS']
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.herokuapp.com']
 CSRF_TRUSTED_ORIGINS = ['https://sriexpenses.herokuapp.com','http://127.0.0.1']
@@ -83,21 +81,21 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config("DB_NAME"),
-        'USER' : config("DB_USER"),
-        'PASSWORD' : config("DB_PASSWORD"),
-        'HOST' : config("DB_HOST"),
-        'PORT' : config("DB_PORT"),
+        'NAME': os.environ["DB_NAME"],
+        'USER' : os.environ["DB_USER"],
+        'PASSWORD' : os.environ["DB_PASSWORD"],
+        'HOST' : os.environ["DB_HOST"],
+        'PORT' : os.environ["DB_PORT"],
     }
 }
 
 # email stuff 
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
+EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 
 
 # Password validation
@@ -144,7 +142,3 @@ STATIC_ROOT = os.path.join( BASE_DIR, 'staticfiles' )
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 django_heroku.settings(locals())
 MESSAGE_TAGS = {messages.ERROR : 'danger'}
-
-
-
-
