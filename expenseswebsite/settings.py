@@ -20,8 +20,8 @@ DEBUG = True
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.herokuapp.com' ,'https://.vercel.app', 'https://.now.sh']
-CSRF_TRUSTED_ORIGINS = ['https://sriexpenses.herokuapp.com','http://127.0.0.1','https://.vercel.app', 'https://.now.sh']
+ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.herokuapp.com' ,'https://income-expense-manager-website..vercel.app', 'https://income-expense-manager-website..now.sh']
+CSRF_TRUSTED_ORIGINS = ['https://sriexpenses.herokuapp.com','http://127.0.0.1','https://income-expense-manager-website..vercel.app', 'https://income-expense-manager-website..now.sh']
 
 
 # Application definition
