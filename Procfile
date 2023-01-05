@@ -1,1 +1,1 @@
-web: gunicorn expenseswebsite.wsgi --log-file -
+web: waitress-serve --port=$PORT expenseswebsite.wsgi:application

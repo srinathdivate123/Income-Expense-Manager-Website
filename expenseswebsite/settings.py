@@ -21,7 +21,7 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://income-expense-manager-website-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://income-expense-manager-website-production.up.railway.app', '*']
 
 
 # Application definition
@@ -96,7 +96,7 @@ DATABASES = {
 
 }
 
-# email stuff 
+#email stuff 
 # EMAIL_HOST = os.environ['EMAIL_HOST']
 # EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 # EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
