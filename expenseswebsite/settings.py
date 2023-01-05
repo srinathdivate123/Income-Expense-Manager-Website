@@ -20,8 +20,8 @@ DEBUG = True
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://income-expense-manager-website-production.up.railway.app', '*']
+ALLOWED_HOSTS = ['*', '.vercel.app', '.now.sh']
+CSRF_TRUSTED_ORIGINS = ['.vercel.app', '.now.sh', 'https://income-expense-manager-website-production.up.railway.app', '*']
 
 
 # Application definition
