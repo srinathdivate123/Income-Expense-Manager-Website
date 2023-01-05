@@ -20,8 +20,8 @@ DEBUG = True
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.herokuapp.com' ,'https://income-expense-manager-website..vercel.app', 'https://income-expense-manager-website..now.sh']
-CSRF_TRUSTED_ORIGINS = ['https://sriexpenses.herokuapp.com','http://127.0.0.1','https://income-expense-manager-website..vercel.app', 'https://income-expense-manager-website..now.sh']
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["*"]
 
 
 # Application definition
@@ -141,7 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'expenseswebsite/static')]
-STATIC_ROOT = os.path.join( BASE_DIR, 'staticfiles_build', 'static' )
+STATIC_ROOT = os.path.join( BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
