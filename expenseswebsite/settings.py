@@ -5,7 +5,6 @@ import os
 # Initialise environment variables
 
 from pathlib import Path
-import django_heroku
 from django.contrib import messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -16,13 +15,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
-DEBUG = os.environ['DEBUG_STATUS']
+SECRET_KEY = 'django-insecure-d+p9z07%7dc#sfivh5i8_7clu2mk8zn)4l$&)dp9q-*0$a_bh1'
+DEBUG = True
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.herokuapp.com']
-CSRF_TRUSTED_ORIGINS = ['https://sriexpenses.herokuapp.com','http://127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'sriexpenses.herokuapp.com' ,'https://.vercel.app', 'https://.now.sh']
+CSRF_TRUSTED_ORIGINS = ['https://sriexpenses.herokuapp.com','http://127.0.0.1','https://.vercel.app', 'https://.now.sh']
 
 
 # Application definition
@@ -80,22 +79,30 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ["DB_NAME"],
-        'USER' : os.environ["DB_USER"],
-        'PASSWORD' : os.environ["DB_PASSWORD"],
-        'HOST' : os.environ["DB_HOST"],
-        'PORT' : os.environ["DB_PORT"],
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': os.environ["DB_NAME"],
+        # 'USER' : os.environ["DB_USER"],
+        # 'PASSWORD' : os.environ["DB_PASSWORD"],
+        # 'HOST' : os.environ["DB_HOST"],
+        # 'PORT' : os.environ["DB_PORT"],
+
+
+
+    
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    
     }
+
 }
 
 # email stuff 
-EMAIL_HOST = os.environ['EMAIL_HOST']
-EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
-DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
-EMAIL_PORT = os.environ['EMAIL_PORT']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+# EMAIL_HOST = os.environ['EMAIL_HOST']
+# EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+# EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+# DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
+# EMAIL_PORT = os.environ['EMAIL_PORT']
+# EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 
 
 # Password validation
@@ -134,11 +141,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'expenseswebsite/static')]
-STATIC_ROOT = os.path.join( BASE_DIR, 'staticfiles' )
+STATIC_ROOT = os.path.join( BASE_DIR, 'staticfiles_build', 'static' )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-django_heroku.settings(locals())
 MESSAGE_TAGS = {messages.ERROR : 'danger'}

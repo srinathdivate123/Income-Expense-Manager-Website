@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.views import View
 import json
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.models import User
@@ -8,7 +7,7 @@ from validate_email import validate_email
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
+from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.template.loader import render_to_string
@@ -60,9 +59,6 @@ def RegistrationView(request):
         return render(request, 'authentication/register.html')
 
     if request.method == "POST":
-        # GET USER DATA
-        # VALIDATE
-        # create a user account
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
@@ -136,15 +132,11 @@ def VerificationView(request,uidb64, token):
 def LoginView(request):
     if request.method=="GET":
         return render(request, 'authentication/login.html')
-
     if request.method=="POST":
         username = request.POST['username']
         password = request.POST['password']
-
         if username and password:
             user = auth.authenticate(username=username, password=password)
-            
-
             if user:
                 if user.is_active:
                     auth.login(request, user)
@@ -154,15 +146,13 @@ def LoginView(request):
                 else:
                     messages.error(request, 'Account is not activated yet! Please check your email')
                     return redirect('nlogin')
-                return render(request, 'authentication/login.html')
             else:
                 messages.error(request, 'Invalid credentials, please enter the correct credentials')
                 return redirect('nlogin')
-            return render(request, 'authentication/login.html')
-
-        messages.error(
+        else:
+            messages.error(
             request, 'Please fill all fields!')
-        return render(request, 'authentication/login.html')
+            return render(request, 'authentication/login.html')
 
 
 def LogoutView(request):
