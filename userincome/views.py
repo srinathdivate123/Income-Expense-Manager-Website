@@ -66,7 +66,11 @@ def add_income (request):
 def income_edit(request, id):
     income = UserIncome.objects.get(pk=id)
     sources = Source.objects.all()
-    currency = UserPreference.objects.get(user=request.user).currency
+    if UserPreference.objects.filter(user = request.user).exists():
+        currency = UserPreference.objects.get(user = request.user).currency
+    else:
+        obj = UserPreference.objects.create(user = request.user, currency = 'INR - Indian Rupee')
+        currency = obj.currency
     context = {
         'income':income,
         'values':income,
@@ -86,18 +90,18 @@ def income_edit(request, id):
         source = request.POST['source']
         if not amount:
             messages.error(request, 'Amount is required!')
-            return render (request, 'income/add_income.html', context)
+            return render (request, 'income/edit_income.html', context)
         if not description:
             messages.error(request, 'Description is required!')
-            return render (request, 'income/add_income.html', context)
+            return render (request, 'income/edit_income.html', context)
         if not source:
             messages.error(request, 'Source is required!')
-            return render (request, 'income/add_income.html', context)
+            return render (request, 'income/edit_income.html', context)
         if not date:
             messages.error(request, 'Date is required!')
-            return render (request, 'income/add_income.html', context)
+            return render (request, 'income/edit_income.html', context)
         
-        UserIncome.objects.create(owner=request.user, amount=amount, date=date, source=source, description=description)
+
         income.owner=request.user
         income.amount=amount
         income.date=date

@@ -9,19 +9,10 @@ from django.contrib import messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-d+p9z07%7dc#sfivh5i8_7clu2mk8zn)4l$&)dp9q-*0$a_bh1'
 DEBUG = True
-# SECURITY WARNING: don't run with debug turned on in production!
-
-
 ALLOWED_HOSTS = ['*', '.vercel.app', '.now.sh']
-CSRF_TRUSTED_ORIGINS = ['.vercel.app', '.now.sh', 'https://income-expense-manager-website-production.up.railway.app', '*']
+CSRF_TRUSTED_ORIGINS = ['https://incomeexpensemanager.pythonanywhere.com', 'https://incomeexpensemanager.pythonanywhere.com', 'http://127.0.0.1']
 
 
 # Application definition
@@ -32,7 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'authentication',
     'expenses',
@@ -44,7 +34,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -72,23 +61,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': os.environ["DB_NAME"],
-        # 'USER' : os.environ["DB_USER"],
-        # 'PASSWORD' : os.environ["DB_PASSWORD"],
-        # 'HOST' : os.environ["DB_HOST"],
-        # 'PORT' : os.environ["DB_PORT"],
-
-
-
-    
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     
@@ -96,13 +70,8 @@ DATABASES = {
 
 }
 
-#email stuff 
-# EMAIL_HOST = os.environ['EMAIL_HOST']
-# EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-# EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
-# DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
-# EMAIL_PORT = os.environ['EMAIL_PORT']
-# EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+
+
 
 
 # Password validation
@@ -122,29 +91,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
-
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'expenseswebsite/static')]
 STATIC_ROOT = os.path.join( BASE_DIR, 'staticfiles')
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_TAGS = {messages.ERROR : 'danger'}

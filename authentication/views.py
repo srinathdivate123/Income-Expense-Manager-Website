@@ -95,13 +95,10 @@ def RegistrationView(request):
                     'noreply@semycolon.com',
                     [email],
                 )
-
-
-
                 EmailThread(email).start()
                 messages.success(request, 'Account successfully created !! Please check your mail to activate your account')
                 return render(request, 'authentication/register.html')
-        return render(request, 'authentication/register.html')
+        return redirect('nlogin')
 
 
 

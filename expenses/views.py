@@ -69,10 +69,10 @@ def add_expense (request):
             return render (request, 'expenses/add_expense.html', context)
         if not category:
             messages.error(request, 'Category is required!')
-            return render (request, 'expenses/edit_expense.html', context)
+            return render (request, 'expenses/add_expense.html', context)
         if not date:
             messages.error(request, 'Date is required!')
-            return render (request, 'expenses/edit_expense.html', context)
+            return render (request, 'expenses/add_expense.html', context)
         
         
         
@@ -105,19 +105,16 @@ def expense_edit(request, id):
         category = request.POST['category']
         if not amount:
             messages.error(request, 'Amount is required!')
-            return render (request, 'expenses/add_expense.html', context)
+            return render (request, 'expenses/edit_expense.html', context)
         if not description:
             messages.error(request, 'Description is required!')
-            return render (request, 'expenses/add_expense.html', context)
+            return render (request, 'expenses/edit_expense.html', context)
         if not category:
             messages.error(request, 'Category is required!')
             return render (request, 'expenses/edit_expense.html', context)
         if not date:
             messages.error(request, 'Date is required!')
             return render (request, 'expenses/edit_expense.html', context)
-        
-        Expense.objects.create(owner=request.user, amount=amount, date=date, category=category, description=description)
-        expense.owner=request.user
         expense.amount=amount
         expense.date=date
         expense.category=category
@@ -163,7 +160,3 @@ def expense_category_summary(request):
 
 def stats_view(request):
     return render(request, 'expenses/e_stats.html')
-
-
-
-
