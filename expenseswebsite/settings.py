@@ -1,9 +1,4 @@
 import os
-# Add .env variables anywhere before SECRET_KEY
-
-
-# Initialise environment variables
-
 from pathlib import Path
 from django.contrib import messages
 
@@ -11,7 +6,7 @@ from django.contrib import messages
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d+p9z07%7dc#sfivh5i8_7clu2mk8zn)4l$&)dp9q-*0$a_bh1'
 DEBUG = True
-ALLOWED_HOSTS = ['*', '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['*', ]
 CSRF_TRUSTED_ORIGINS = ['https://incomeexpensemanager.pythonanywhere.com', 'https://incomeexpensemanager.pythonanywhere.com', 'http://127.0.0.1']
 
 
